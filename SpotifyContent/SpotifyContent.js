@@ -1,8 +1,8 @@
 var SpotifyWebApi = require("spotify-web-api-node");
 var querystring = require("querystring");
 
-var client_id = "0ff0285331ad42b099464ec95f1075cb"; // Your client id
-var client_secret = "43181c8738ad4022ab27bfa1e6bc7693"; // Your secret
+var client_id = ""; // Your client id
+var client_secret = ""; // Your secret
 var redirect_uri = "http://localhost:8888/callback";
 var stateKey = "spotify_auth_state";
 
@@ -99,58 +99,6 @@ module.exports.spotifyCallback = function (req, res) {
     });
 };
 
-// module.exports.spotifyCallback = function (req, res) {
-//   spotifyApi
-//     .authorizationCodeGrant(req.query.code)
-//     .then(
-//       function (data) {
-//         spotifyApi.setAccessToken(data.body["access_token"]);
-//         spotifyApi.setRefreshToken(data.body["refresh_token"]);
-//         return spotifyApi.getMe;
-//       },
-//       function (err) {
-//         console.log("Something went wrong!", err);
-//       }
-//     )
-//     .then(function (data) {
-//       spotifyApi
-//         .getMyRecentlyPlayedTracks({
-//           limit: 50,
-//         })
-//         .then(function (data) {
-//           // we will not need every info from  the response
-//           var songs = [];
-//           var dateF = Date.parse(data.body.items[0].played_at);
-//           var dateI = Date.parse(
-//             data.body.items[data.body.items.length - 1].played_at
-//           );
-//           var activity = (dateF - dateI) / 1000 / 60 / 60; // convert milliseconds to hours
-//           data.body.items.forEach(function (item) {
-//             songs.push(item.track.id); // we stock IDs to get the song rec later
-//           });
-//           var density = 0;
-//           if (activity < 10) density = getRandomInt(131, 201);
-//           else if (activity < 20) density = getRandomInt(101, 131);
-//           else if (activity < 35) density = getRandomInt(51, 101);
-//           else if (activity > 35) density = getRandomInt(21, 51);
-
-//           req.session.density = density;
-
-//           spotifyApi.getAudioFeaturesForTracks(songs).then(function (data) {
-//             var keys = [];
-//             data.body.audio_features.forEach(function (f) {
-//               keys.push(f.key);
-//             });
-//             // var key = getMax(occurrences(keys));
-//             // console.log("et la" + key);
-//             // req.session.key = 3;
-//           });
-//           // req.session.key = 0;
-//           req.session.key = 3;
-//           res.redirect("/myApp");
-//         });
-//     });
-// };
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
