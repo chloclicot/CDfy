@@ -5,7 +5,7 @@ var router = express.Router();
 /* GET home page */
 router.get("/", function (req, res, next) {
   res.render("index", {
-    title: "myApp",
+    title: "CDfy - Login",
   });
 });
 
@@ -17,12 +17,13 @@ router.get("/callback", function (req, res) {
   spotifyContent.spotifyCallback(req, res);
 });
 
-router.get("/myApp", function (req, res, next) {
+router.get("/CDfy", function (req, res, next) {
   res.render("record", {
-    title: "myApp",
+    title: "CDfy",
     key: req.session.key,
     density: req.session.density,
     user: req.session.user,
+    rec: req.session.rec,
   });
 });
 

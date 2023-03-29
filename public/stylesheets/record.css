@@ -56,6 +56,10 @@ h1{
 .row{
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 0;
+    padding: 0px;
+    padding-top: 70px;
+    height : 500px;
     width: 900px;
     display: flex;
 }
@@ -68,8 +72,8 @@ h1{
     padding: 10px;
     padding-right: 0px;
     margin-right: 0px;
-    width:450px;
-    height: 450px;
+    width:500px;
+    height: 500px;
 }
 
 .container2{
@@ -125,7 +129,7 @@ to { transform: rotate(360deg); }
   .shadow{
     aspect-ratio: 1;
     position: absolute;
-    height: 450px;
+    height: 500px;
     border-radius: 50%;
     display: inline-block;
     background-color: transparent;
@@ -136,7 +140,7 @@ to { transform: rotate(360deg); }
     aspect-ratio: 1;
     position: absolute;
     mix-blend-mode:hard-light;
-    height: 450px;
+    height: 500px;
     border-radius: 50%;
     display: inline-block;
     background-color: transparent;
@@ -162,6 +166,23 @@ to { transform: rotate(360deg); }
     filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
   }
 
+  #rec{
+    padding-top: 30px;
+    width :550px;
+    opacity: 0%;
+    transition: 1s;
+  }
+
+  .row2{
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 0;
+    padding: 0px;
+    padding-top: 20px;
+    height : 50px;
+    width: 900px;
+    display: flex;
+}
 
   p{
     text-align: center;

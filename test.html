@@ -4,11 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/rec_Icon"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/record.css" />
+    <link rel="stylesheet" type="text/css" href="./public/stylesheets/record.css" />
     <title> <%=title%> </title>
     
 </head>
 <body id="body" class="no-transition">
+    <h1 style="opacity: 50%;">H1</h1>
     <div class="row">
         <div class="container1 bounce" id="cd">
             <div class="shadow"></div>
@@ -25,8 +26,9 @@
                     <circle cy="50%"cx="50%" r= "50%" fill="#70584F"></circle>
                     <circle cy="50%" cx="50%" r="48%" fill="white"></circle>
                 </g>
+                
             </svg>
-            
+            <div>This is the new div</div>
         </div>
         <div class="container2">
             <svg width="100%" height="100%" 
@@ -47,17 +49,12 @@
                 recently
             </p>
             <br>
-            <p>Your record's base color is <c id="recColor">{color}</c> because the songs
+            <p>Your record is mostly <c id="recColor">{color}</c> because the songs
             you listened to were mostly in the key <c id="key">{key}</c></p>
             <br>
             <br>
             <p>Click on the needle to get a song recommendation based on your activity !</p>
         </div>
-    </div>
-    <div class="row2" >
-        <p id="rec" class="title"><%=rec.name%> - <%rec.artists.forEach(function(a){
-            %><%=a.name%><%})%></p>
-        <p style="width : 350" name="spacer"></p>
     </div>
 </body>
 <script>
@@ -86,7 +83,6 @@ var keyNames = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", 
     const activity = document.getElementById("act");
     const lines = document.getElementById("dense");
     const keyText = document.getElementById("key");
-    const songTitle = document.getElementById("rec");
 
     function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -135,7 +131,7 @@ var keyNames = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", 
     }
     else if (50 <= density && density < 100) {
         activity.innerHTML = "an active";
-        lines.innerHTML = "quite a few";
+        lines.innerHTML = "a few";
     }
     else if (100 <= density && density < 130) {
         activity.innerHTML = "a pretty active";
@@ -190,7 +186,6 @@ var keyNames = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", 
     shadow.style.animationPlayState = "paused";
 
     needle.addEventListener("click", () => {
-    songTitle.style.opacity = "100%";
     needle.classList.toggle("needlespin");
     if (shadow.style.animationPlayState == "paused") {
         setTimeout(function () {
@@ -211,7 +206,7 @@ var keyNames = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", 
     
     var key = "<%-key%>";
     var dense = "<%-density%>";
-    fill_record(colors[key], dense);
+    fill_record(colors[11], dense);
 
     setTimeout(function () {
     transitionAfterPageLoad();

@@ -3,7 +3,7 @@ var querystring = require("querystring");
 
 var client_id = ""; // Your client id
 var client_secret = ""; // Your secret
-var redirect_uri = "http://localhost:8888/callback";
+var redirect_uri = "";
 var stateKey = "spotify_auth_state";
 
 /**
@@ -64,8 +64,11 @@ module.exports.spotifyCallback = function (req, res) {
         })
         .then(function (data) {
           songIDs = [];
+          artistsIDs = [];
+
           data.body.items.forEach(function (item) {
             songIDs.push(item.track.id);
+            artistsIDs.push(item.track.artists[0].id);
           });
           //calculating the time difference
 
@@ -85,20 +88,30 @@ module.exports.spotifyCallback = function (req, res) {
 
           spotifyApi.getAudioFeaturesForTracks(songIDs).then(function (data) {
             var key = [];
-
-            data.body.audio_features.forEach(function (p1, p2, p3) {
-              key.push(p1.key);
+            data.body.audio_features.forEach(function (f) {
+              key.push(f.key);
             });
+
             var _key = getMax(occurrences(key));
             req.session.key = _key;
-            res.redirect("/myApp");
+
+            spotifyApi
+              .getRecommendations({
+                limit: 1,
+                seed_tracks: getRandomItems(songIDs, 3),
+                seed_artists: getRandomItems(artistsIDs, 2),
+              })
+              .then(function (data) {
+                req.session.rec = data.body.tracks[0];
+
+                res.redirect("/CDfy");
+              });
           });
         });
       req.session.user =
         data.body.id.length > 10 ? data.body.display_name : data.body.id;
     });
 };
-
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -126,4 +139,14 @@ function getMax(arr) {
     }
   });
   return max;
+}
+
+function getRandomItems(arr, n) {
+  var values = [];
+  for (let i = 0; i < n; i++) {
+    item = arr[getRandomInt(0, arr.length)];
+    // console.log(item);
+    values.push(item);
+  }
+  return values;
 }
