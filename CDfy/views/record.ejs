@@ -1,0 +1,216 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/rec_Icon"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/record.css" />
+    <title> <%=title%> </title>
+    
+</head>
+<body id="body" class="no-transition">
+    <h1 style="opacity: 50%;">H1</h1>
+    <div class="row">
+        <div class="container1 bounce" id="cd">
+            <div class="shadow"></div>
+            <div class="circle spin" id="shadow"></div>
+            <svg width="100%" height="100%" 
+                viewBox="0 0 100 100" class="svg" id="svg">
+                <defs>
+                <linearGradient id="myGradient" gradientTransform="rotate(90)">
+                    <stop offset="5%" stop-color="#E27436" />
+                    <stop offset="95%" stop-color="#E0D3BF" />
+                  </linearGradient>
+                </defs>
+                <g id="record">
+                    <circle cy="50%"cx="50%" r= "50%" fill="#70584F"></circle>
+                    <circle cy="50%" cx="50%" r="48%" fill="white"></circle>
+                </g>
+                
+            </svg>
+            
+        </div>
+        <div class="container2">
+            <svg width="100%" height="100%" 
+                viewBox="0 0 100 100" class="svg" id="svg2">
+                    
+                    <circle fill="rgb(102, 86, 77)" cx="52%" cy="-120%" r="26%"/>
+                    <path fill="rgb(102, 86, 77)" d="m 58 -145 l 0 201 l -21 107 
+                    l 11 3 l -12 44 l -33 -9 l 10 -45 l 11 3 l 21 -103 l 0 -200"></path>
+                    <circle id ="truc" fill="gold"  cx="52%" cy="-120%" r="16%"/>
+                    <!-- <circle r="100" cx="52%" cy="-120%" fill="gold" style="filter:url(#dropshadow)"/> -->
+                    <!-- <circle r="80" cx="150" cy="150" fill="yellow"/> -->
+                </svg>
+        </div>
+        <div class="container3" id=""infos>
+            <p class="title"> <%=user%> 's Record</p>
+            <br>
+            <p>Your record has <c id="dense">{density}</c> lines because you've been <c id="act">{activity}</c> listener
+                recently
+            </p>
+            <br>
+            <p>Your record is mostly <c id="recColor">{color}</c> because the songs
+            you listened to were mostly in the key <c id="key">{key}</c></p>
+            <br>
+            <br>
+            <p>Click on the needle to get a song recommendation based on your activity !</p>
+        </div>
+    </div>
+</body>
+<script>
+
+var keyNames = ["C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭", "A", "A♯/B♭", "B"];
+    /////////// BASE COLORS /////////////////////
+
+    const colors = [
+    { name: "yellowish", key: "C", r: 244, g: 223, b: 91 },// 0
+    { name: "brick",key:"C♯/D♭", r:166, g:64, b:40},// 1
+    { name: 'Light blue',key:"D",r:132, g:208, b:228}, // 2
+    { name: "Almost white", key:"D♯/E♭", r:238, g:237, b:237}, // 3
+    { name: "spikeyblue", key:"E", r: 25, g:71, b:187 }, // 4
+    { name: "Intense purple", key:"F", r: 74, g: 14, b: 114 }, // 5
+    { name: "green", key:"F♯/G♭",r: 73, g: 212, b: 40 }, // 6
+    { name: "pinkish",key:"G", r: 246, g: 146, b: 219 }, // 7
+    { name: "Minty", key:"G♯/A♭", r:82, g:210, b:122}, //8
+    { name: "purple", key:"A", r:168, g:50, b:233}, //9 
+    { name: "rainbow", key:"A♯/B♭", r:255, g:255,b:255}, //10
+    { name: "melancholyBlue", key:"B", r:76, g:77, b:198}, //11
+    ];
+
+    const group = document.getElementById("record");
+
+    const littleCircle = document.getElementById("truc");
+    const activity = document.getElementById("act");
+    const lines = document.getElementById("dense");
+    const keyText = document.getElementById("key");
+
+    function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+    }
+
+    function add_circle(color, radius, opacity) {
+    const newCircle = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "circle"
+    );
+    newCircle.setAttribute("cx", "50%");
+    newCircle.setAttribute("cy", "50%");
+    newCircle.setAttribute("r", radius);
+    newCircle.setAttribute("fill", color);
+
+    group.appendChild(newCircle);
+    }
+
+    function toRGB(color) {
+    return "rgb(" + color.r + "," + color.g + "," + color.b + ")";
+    }
+
+    function alterValue(value) {
+    var i = getRandomInt(2);
+    switch (i) {
+        case 0:
+        return value + getRandomInt(30);
+        case 1:
+        return value - getRandomInt(30);
+        default:
+        break;
+    }
+    }
+
+    function alterBaseColor(color) {
+    var r = alterValue(color.r);
+    var g = alterValue(color.g);
+    var b = alterValue(color.b);
+    return "rgb(" + r + "," + g + "," + b + ")";
+    }
+
+    function getDensity(density) {
+    if (20 <= density && density < 50){ 
+        activity.innerHTML = "a less active";
+        lines.innerHTML = "less";
+    }
+    else if (50 <= density && density < 100) {
+        activity.innerHTML = "an active";
+        lines.innerHTML = "a few";
+    }
+    else if (100 <= density && density < 130) {
+        activity.innerHTML = "a pretty active";
+        lines.innerHTML = "more";
+        }
+    else if (130 <= density && density <= 200) {
+        activity.innerHTML = "a super active";
+        lines.innerHTML = "a lot of";
+        }
+    }
+
+    //////// FUNCTION TO CREATE THE RECORD //////////
+    const recColor = document.getElementById("recColor");
+
+    function fill_record(baseColor, density) {
+    const n = 50 / density;
+    const increment = Math.round(n * Math.pow(10, 2)) / Math.pow(10, 2);
+    if(baseColor.name=="rainbow"){
+        let i = 0;
+        while (i < 35) {
+            let c = alterBaseColor(colors[getRandomInt(11)]);
+            add_circle(c, 50 - i + "%");
+            i += increment;
+        }
+    }
+    else{
+        let i = 0;
+        while (i < 35) {
+            let c = alterBaseColor(baseColor);
+            add_circle(c, 50 - i + "%");
+            i += increment;
+        }
+    }
+    add_circle("rgb(42, 40, 39)", "17%");
+    add_circle("rgb(28, 26, 25)", "13%");
+    add_circle("rgb(250, 235, 215)", "0.7%");
+    add_circle("rgb(28, 26, 25)", "0.2%");
+    getDensity(density);
+
+    recColor.style.color = toRGB(baseColor);
+    recColor.innerHTML = baseColor.name;
+    keyText.innerHTML = baseColor.key;
+    littleCircle.setAttribute("fill", alterBaseColor(baseColor));
+    
+    }
+
+    ////////////// ANIMATE THE CD /////////////////
+
+    const shadow = document.getElementById("shadow");
+    const needle = document.getElementById("svg2");
+    const cd = document.getElementById("cd");
+    shadow.style.animationPlayState = "paused";
+
+    needle.addEventListener("click", () => {
+    needle.classList.toggle("needlespin");
+    if (shadow.style.animationPlayState == "paused") {
+        setTimeout(function () {
+        shadow.style.animationPlayState = "running";
+        cd.style.animationPlayState = "running";
+        }, 600);
+    } else {
+        setTimeout(function () {
+        shadow.style.animationPlayState = "paused";
+        cd.style.animationPlayState = "paused";
+        }, 500);
+    }
+    });
+
+    function transitionAfterPageLoad() {
+    document.getElementById("body").classList.remove("no-transition");
+    }
+    
+    var key = "<%-key%>";
+    var dense = "<%-density%>";
+    fill_record(colors[11], dense);
+
+    setTimeout(function () {
+    transitionAfterPageLoad();
+    }, 500);
+
+</script>
+</html>
