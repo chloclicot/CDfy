@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <title> <%= title %> </title>
+</head>
+<body>
+    <h1>Hi <%= title %></h1>
+    <center
+        <div class="container">
+            <h1>LOGIN WITH SPOTIFY</h1>
+            <div class="circle" id="rec">
+                <div class="child"></div>
+            </div>
+            <a href="/login" class="btn" id="B1">GET MINE</a>
+            
+        </div>
+    </center>
+    <script>
+        const button = document.querySelector("a");
+        const record = document.querySelector(".circle");
+
+        button.addEventListener("mouseenter", () => {
+        record.style.translate = "17px";
+        record.style.rotate = "460deg";
+        });
+
+        button.addEventListener("mouseleave", () => {
+        record.style.translate = "-10px";
+        record.style.rotate = "-180deg";
+        });
+    </script>
+</body>
+</html>
