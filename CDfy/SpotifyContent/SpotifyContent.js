@@ -1,8 +1,8 @@
 var SpotifyWebApi = require("spotify-web-api-node");
 var querystring = require("querystring");
 
-var client_id = "0ff0285331ad42b099464ec95f1075cb"; // Your client id
-var client_secret = "43181c8738ad4022ab27bfa1e6bc7693"; // Your secret
+var client_id = ""; // Your client id
+var client_secret = ""; // Your secret
 var redirect_uri = "http://localhost:8888/callback";
 var stateKey = "spotify_auth_state";
 
