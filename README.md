@@ -17,4 +17,3 @@ Will soon give you a song recommendation that you can directly play on the page
 - add a loading page
 
 ### In app screeshots
-![alt text](about/2023-04-01 (1).png)
