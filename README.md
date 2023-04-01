@@ -7,7 +7,7 @@ Will soon give you a song recommendation that you can directly play on the page
 ### To run the web-app
 - Clone the repository
 - add your client ID, client secret and callback uri from your spotify app dashoard
-- run the commande *node app.js*
+- run the command *node app.js*
 - enjoy your record!
 
 ### What i am currently working on:
